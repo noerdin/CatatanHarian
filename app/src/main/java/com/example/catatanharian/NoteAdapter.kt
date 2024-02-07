@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import kotlinx.android.synthetic.main.fragment_note_detail_dialog.view.contentTextView
-import kotlinx.android.synthetic.main.fragment_note_detail_dialog.view.titleTextView
+import com.example.catatanharian.databinding.FragmentNoteDetailDialogBinding
 
 class NoteAdapter(private val context: Context, private val notes: List<Note>) : BaseAdapter() {
 
@@ -23,12 +22,20 @@ class NoteAdapter(private val context: Context, private val notes: List<Note>) :
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.fragment_note_detail_dialog, parent, false)
+        //val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.fragment_note_detail_dialog, parent, false)
 
+        //val note = getItem(position)
+        //view.titleTextView.text = note.title
+        //view.contentTextView.text = note.content
+
+        //return view
+
+        val binding = FragmentNoteDetailDialogBinding.inflate(LayoutInflater.from(context), parent, false)
         val note = getItem(position)
-        view.titleTextView.text = note.title
-        view.contentTextView.text = note.content
 
-        return view
+        binding.titleTextView.text = note.title
+        binding.contentTextView.text = note.content
+
+        return binding.root
     }
 }

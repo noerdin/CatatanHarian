@@ -4,25 +4,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.contentEditText
-import kotlinx.android.synthetic.main.activity_main.noteListView
-import kotlinx.android.synthetic.main.activity_main.saveButton
-import kotlinx.android.synthetic.main.activity_main.titleEditText
+import com.example.catatanharian.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var noteAdapter: NoteAdapter
     private var notes = mutableListOf<Note>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         noteAdapter = NoteAdapter(this, notes)
-        noteListView.adapter = noteAdapter
+        binding.noteListView.adapter = noteAdapter
 
-        saveButton.setOnClickListener {
-            val title = titleEditText.text.toString()
-            val content = contentEditText.text.toString()
+        binding.saveButton.setOnClickListener {
+            val title = binding.titleEditText.text.toString()
+            val content = binding.contentEditText.text.toString()
 
             if (title.isNotBlank() && content.isNotBlank()) {
                 val newNote = Note(title = title, content = content)
@@ -34,15 +33,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        noteListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+        binding.noteListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedNote = notes[position]
             showNoteDetail(selectedNote)
         }
     }
 
     private fun clearInputFields() {
-        titleEditText.text.clear()
-        contentEditText.text.clear()
+        binding.titleEditText.text.clear()
+        binding.contentEditText.text.clear()
     }
 
     private fun showNoteDetail(note: Note) {

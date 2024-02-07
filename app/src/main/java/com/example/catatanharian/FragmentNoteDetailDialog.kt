@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.fragment_note_detail_dialog.closeButton
-import kotlinx.android.synthetic.main.fragment_note_detail_dialog.contentTextView
-import kotlinx.android.synthetic.main.fragment_note_detail_dialog.titleTextView
+import com.example.catatanharian.databinding.FragmentNoteDetailDialogBinding
 
 class FragmentNoteDetailDialog : DialogFragment() {
 
@@ -40,15 +38,24 @@ class FragmentNoteDetailDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //val note = arguments?.getParcelable<Note>(ARG_NOTE)
+
+        //note?.let {
+          //  titleTextView.text = it.title
+            //contentTextView.text = it.content
+
+        val binding = FragmentNoteDetailDialogBinding.bind(view)
+
         val note = arguments?.getParcelable<Note>(ARG_NOTE)
 
         note?.let {
-            titleTextView.text = it.title
-            contentTextView.text = it.content
+            binding.titleTextView.text = it.title
+            binding.contentTextView.text = it.content
         }
 
-        closeButton.setOnClickListener {
-            dismiss()
+        binding.closeButton.setOnClickListener { dismiss() }
+        //closeButton.setOnClickListener {
+          //  dismiss()
         }
-    }
+
 }
